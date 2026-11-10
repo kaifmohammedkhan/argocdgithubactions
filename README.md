@@ -1228,65 +1228,89 @@ The implementation preserves visual evidence across eight major implementation s
 
 ## Infrastructure & Access Evidence
 
-```text
-images/argocd/argo 1/
-```
+<img src="images/argocd/argo 1/argo1.6.png" width="450"/>
+<img src="images/argocd/argo 1/argo1.7.png" width="450"/>
+<img src="images/argocd/argo 1/argo1.8.png" width="450"/>
+<img src="images/argocd/argo 1/argo1.9.png" width="450"/>
 
 Documents zrok initialization, GitHub Actions remote execution, tunnel establishment, and SSH access.
 
 ## Argo CD Installation Evidence
 
-```text
-images/argocd/argo 2/
-```
+<img src="images/argocd/argo 2/argo2.3.png" width="450"/>
+<img src="images/argocd/argo 2/argo2.4.png" width="450"/>
+<img src="images/argocd/argo 2/argo2.5.png" width="450"/>
 
 Documents Kind cluster initialization, Argo CD installation, authentication, and dashboard access.
 
 ## Repository & Credential Evidence
 
-```text
-images/argocd/argo 3/
-```
+<img src="images/argocd/argo 1/argo1.4.png" width="450"/>
+<img src="images/argocd/argo 1/argo1.5.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.1.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.3.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.4.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.5.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.6.png" width="450"/>
+<img src="images/argocd/argo 3/argo3.7.png" width="450"/>
 
 Documents GitHub PAT configuration, Argo CD API authentication, and repository registration.
 
 ## Deployment Verification Evidence
 
-```text
-images/argocd/argo 4/
-```
+<img src="images/argocd/argo 4/argo4.1.png" width="450"/>
+<img src="images/argocd/argo 4/argo4.2.png" width="450"/>
+<img src="images/argocd/argo 4/argo4.3.png" width="450"/>
 
 Documents GHCR integration, Kubernetes secrets, RBAC, and live deployment verification.
 
 ## GitOps Application Evidence
 
-```text
-images/argocd/argo 5/
-```
+<img src="images/argocd/argo 5/argo5.1.png" width="450"/>
+<img src="images/argocd/argo 5/argo5.2.png" width="450"/>
+<img src="images/argocd/argo 5/argo5.3.png" width="450"/>
+<img src="images/argocd/argo 5/argo5.4.png" width="450"/>
+<img src="images/argocd/argo 5/argo5.5.png" width="450"/>
 
 Documents declarative application configuration, GHCR image identity, Kubernetes workloads, and application execution.
 
 ## Monitoring Infrastructure Evidence
 
-```text
-images/argocd/argo 6/
-```
+<img src="images/argocd/argo 6/argo6.1.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.2.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.3.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.4.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.5.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.6.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.7.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.8.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.9.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.10.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.11.png" width="450"/>
+<img src="images/argocd/argo 6/argo6.12.png" width="450"/>
 
 Documents Prometheus, Grafana, Helm installation, monitoring data sources, and dashboard configuration.
 
 ## Application Observability Evidence
 
-```text
-images/argocd/argo 7/
-```
+<img src="images/argocd/argo 7/argo7.1.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.2.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.3.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.4.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.5.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.6.png" width="450"/>
+<img src="images/argocd/argo 7/argo7.7.png" width="450"/>
 
 Documents application metrics, Prometheus target discovery, and Grafana infrastructure dashboards.
 
 ## Alerting & Notification Evidence
 
-```text
-images/argocd/argo 8/
-```
+<img src="images/argocd/argo 8/argo8.4.png" width="450"/>
+<img src="images/argocd/argo 8/argo8.5.png" width="450"/>
+<img src="images/argocd/argo 8/argo8.6.png" width="450"/>
+<img src="images/argocd/argo 8/argo8.7.png" width="450"/>
+<img src="images/argocd/argo 8/argo8.8.png" width="450"/>
+
 
 Documents Prometheus alert rules, zero-replica alert generation, Alertmanager configuration, runtime logs, and Gmail notifications.
 
