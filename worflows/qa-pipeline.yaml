@@ -1,0 +1,63 @@
+name: QA Pipeline
+
+on:
+  push:
+    branches:
+      - pre-main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  # ============================================================
+  # CYPRESS E2E
+  # Runs independently
+  # ============================================================
+
+  cypress-e2e:
+    uses: ./.github/workflows/qa-cypress.yaml
+    secrets: inherit
+
+  # ============================================================
+  # K6 SMOKE
+  # Runs independently of Cypress
+  # ============================================================
+
+  k6-smoke-test:
+    uses: ./.github/workflows/qa-k6-smoke.yaml
+    secrets: inherit
+
+  # ============================================================
+  # K6 LOAD
+  # Runs independently of Cypress and k6 Smoke
+  # ============================================================
+
+  k6-load-test:
+    uses: ./.github/workflows/qa-k6-load.yaml
+    secrets: inherit
+
+  # ============================================================
+  # QA REPORT
+  # Waits for all three QA workflows to finish,
+  # regardless of success or failure.
+  # ============================================================
+
+  qa-pass:
+    needs:
+      - cypress-e2e
+      - k6-smoke-test
+      - k6-load-test
+
+    if: always()
+
+    uses: ./.github/workflows/qa-report.yaml
+
+    with:
+      cypress_result: ${{ needs.cypress-e2e.result }}
+      k6_smoke_result: ${{ needs.k6-smoke-test.result }}
+      k6_load_result: ${{ needs.k6-load-test.result }}
+
+    secrets: inherit

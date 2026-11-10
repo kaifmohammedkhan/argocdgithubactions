@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: monitoring-kube-prometheus-alertmanager
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  replicas: 1
+  secrets:
+    - alertmanager-smtp-credentials
+
+  # 👇 These selectors enable AlertmanagerConfig discovery
+  alertmanagerConfigSelector:
+    matchLabels:
+      release: monitoring
+      
+  alertmanagerConfigNamespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: monitoring

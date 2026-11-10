@@ -1,0 +1,125 @@
+# -------------------------
+# PostgreSQL Secret + ConfigMap
+# -------------------------
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: default
+type: Opaque
+stringData:
+  DB_USER: resume
+  DB_PASSWORD: resume123
+  DB_NAME: resume_db
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resume-config
+  namespace: default
+data:
+  DB_TYPE: postgres
+---
+# -------------------------
+# PostgreSQL Deployment + Service
+# -------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_NAME
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+           claimName: postgres-pvc-new
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: default
+spec:
+  selector:
+    app: db
+  ports:
+    - name: postgres
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30082
+  type: NodePort
+---
+# -------------------------
+# Resume Matcher Service
+# -------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: resume-matcher-service
+  namespace: default
+  labels:
+    app: resume-matcher-ghcr   # 👈 CRITICAL: ServiceMonitor looks for this label on the Service object
+spec:
+  selector:
+    app: resume-matcher-ghcr
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30080
+  type: NodePort
+---
+# -------------------------
+# Prometheus ServiceMonitor
+# -------------------------
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: resume-matcher-monitor
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: resume-matcher-ghcr   # Matches the Service label above
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: http                # Scrapes port 3000 where your Express app actually exposes /metrics
+      path: /metrics
+      interval: 30s

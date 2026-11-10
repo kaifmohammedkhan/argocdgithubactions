@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: resume-matcher
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/kaifmohammedkhan/resume-matcher-devops.git'
+    targetRevision: HEAD
+    path: kubernetes
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

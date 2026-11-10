@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: resume-matcher-monitor
+  namespace: monitoring     # Keep the ServiceMonitor in the monitoring namespace
+  labels:
+    release: monitoring     # Required for Prometheus to discover it
+spec:
+  selector:
+    matchLabels:
+      app: resume-matcher-ghcr
+  namespaceSelector:
+    any: true               # 👈 CRITICAL: This forces Prometheus to look across ALL namespaces (default, monitoring, etc.)
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
